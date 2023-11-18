@@ -1,0 +1,14 @@
+{% extends 'main/layout2.html' %}
+{% block title %} Статус работы {% endblock %}
+{% block content %}
+
+    <div class="box inner-offset">
+        </br>
+        </br>
+        <h2 align="center"> УВЫ! </h2></br>
+        <h2 align="center"> {{ mess }} </h2></br>
+        <form action="" method="get">
+             <a href="{% url 'teacherReg' %}" class="reset link border"> ВЕРНУТЬСЯ </a>
+        </form>
+    </div>
+{% endblock %}

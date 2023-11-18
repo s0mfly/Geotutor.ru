@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% block title %} Сайт геометрических задач {% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <form class='login-form' action="" method="get">
+            {% csrf_token %}
+            <h1 align="center">Добро пожаловать!</h1>
+            <button class="btn">
+            <a href="{% url 'teacherReg' %}" id = "butt1" class="link"> Войти как учитель </a>
+                </button>
+            <button class="btn">
+            <a href="{% url 'studentStart' %}" id = "butt2" class="link"> Войти как ученик </a>
+                </button>
+        </form>
+    </div>
+{% endblock %}

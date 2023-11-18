@@ -1,0 +1,11 @@
+{% extends 'main/layout.html' %}
+{% block title %} Это уже используется {% endblock %}
+{% block content %}
+
+    <div class="box inner-offset">
+        <h2 align="center"> {{ ms }} </h2>
+        <form action="" method="get">
+             <a href="{% url link %}" class="reset link border"> Попробовать ещё раз </a>
+        </form>
+    </div>
+{% endblock %}

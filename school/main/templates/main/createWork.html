@@ -1,0 +1,45 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %}Создание работы{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <form class='login-form' action="" method="get">
+            {% csrf_token %}
+            <form action="" method="get">
+                    <input class="textfield" type="text" id="inpu1" name="work_name" placeholder='Введите уникальное название работы' maxlength="25" size="20">
+                    <p>Выберите дату открытия работы</p>
+                    <input class="textfield" type="datetime-local" id="inpu2" name="start_date" placeholder='Введите дату начала работы' maxlength="25" size="20">
+                    <p>Выберите дату закрытия работы</p>
+                    <input class="textfield" type="datetime-local" id="inpu3" name="end_date" placeholder='Введите дату окончания работы' maxlength="25" size="20">
+                    <input class="textfield" type="number" id="inpu4" name="time" placeholder='Введите время работы в минутах(макс-59)' min="1" max="60" size="20">
+                    <input class="textfield" type="number" id="inpu5" name="count" placeholder='Введите кол-во вариантов работы(макс-40)' max="40" min="1" size="20">
+                    <div>
+                        <p><strong>Выберите класс и тему работы</strong></p>
+                        <select name="tema">
+                            <option value="7" disabled>7 класс</option>
+                            <option value="7start">Стартовая работа 7 класс</option>
+                            <option value="8" disabled>8 класс</option>
+                            <option value="8start">Стартовая работа 8 класс</option>
+                            <option value="9" disabled>9 класс</option>
+                            <option value="9start">Стартовая работа 9 класс</option>
+                            <option value="10" disabled>10 класс</option>
+                            <option value="10start">Стартовая работа 10 класс</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success btn" id = 'butt1' type="submit" name="create" onclick="Func()">Создать работу</button>
+                    <h4 id="wait"></h4>
+                </form>
+        </form>
+    </div>
+
+<script>
+        function Func() {
+        document.getElementById('butt1').style.display='none';
+        // document.getElementById('butt2').style.display='none';
+        var txt2 = document.getElementById('wait');
+        txt2.innerHTML = 'НЕБОЛЬШОЕ ОЖИДАНИЕ, ПОЖАЛУЙСТА';
+        txt2.style.fontStyle = 'Italic';
+        }
+    </script>
+{% endblock %}

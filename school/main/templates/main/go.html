@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Погнали{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<form action="" method="get">
+    <div class="wrapper">
+        <div class="box">
+        <h2 class="title">Пора начать!</h2>
+            <h4 id = 'answers1'> </h4><button class="btn btn-success btn" id = 'butt0' type="submit" name="go"
+                                              onclick="Func()"> Вперед! </button>
+                                            </div>
+    </div>
+    </form>
+{% endblock %}

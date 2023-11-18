@@ -1,0 +1,16 @@
+{% extends 'main/layout.htmzada4i3.htmll' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        {% for task in txt %}
+        <h2>{{task}}</h2>
+        <h4> <input type="text" id="inpu0" name="otv" value="" placeholder='Введите ответ к задаче' maxlength="30" size="20"> </h4>
+        {% endfor %}
+    <form action="" method="get">
+    {% csrf_token %}
+    <h4 id = 'answers1'> </h4><button class="btn btn-success btn" id = 'butt1' type="submit" name="answers1" onclick="Func()"> ВВЕСТИ </button>
+    </form>
+    </div>
+{% endblock %}

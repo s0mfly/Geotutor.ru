@@ -1,0 +1,63 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %}Статистика ответов{% endblock %}
+
+{% block content %}
+
+
+    <div class="box inner-offset">
+        <h1 class="title">Статистика ответов</h1>
+        <h3 id="time">  </h3>
+        <div class="highlight"> Задачи и ответы: </div>
+        <div>
+        {% for i in otveti %}
+            <div class="user-score">
+                <div class="highlight"> Задача № {{ i.0 }}:</div>
+                <div> {{ i.1 }}</div>
+                <div class="score"> Ваш ответ: {{ i.2 }}</div>
+            </div>
+        {% endfor %}
+        </div>
+        <div>
+            <form action="" method="get">
+                <input class='textfield' type="text" id="inp" name="zada4a_num" placeholder="Номер задачи"><br>
+                <input class='textfield' type="text" id="in1" name="otvet" placeholder="Изменённый ответ"><br>
+                        <div>
+            <button class="btn btn-success" id='chan' type="submit" name="change" onclick="Func()"> Изменить ответ </button>
+                </div>
+                <br>
+            <div>
+            <button class="btn btn-success" id='butt1' type="submit" name="back" onclick="Func()"> Вернуться </button>
+                </div>
+                <br>
+                    <div>
+            <button class="btn btn-success" id='butt2' type="submit" name="end" onclick="Func()"> Завершить работу </button>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+      var na4 = new Date() - new Date(0);
+      localStorage.setItem('timer', {{time}});
+
+
+      function countdownTimer() {
+        var t = '';
+        txv = Number(localStorage.getItem('timer'));
+        localStorage.setItem('timer', txv-1);
+        document.getElementById('time').innerHTML = 'Оставшееся время на выполнение работы: ' +
+        String(Math.floor(txv / 3600)) + ' ч ' + String(Math.floor(txv / 60)) + ' мин ' + String(txv % 60) + ' сек ';
+
+    check = Number(localStorage.getItem('timer'));
+
+    if (check == 0) {
+        document.getElementById('time').innerHTML = 'капууууууууТ'
+        location.reload();
+    }
+    }
+
+      countdownTimer();
+      timerId = setInterval(() => countdownTimer(), 1000);
+</script>
+
+{% endblock %}

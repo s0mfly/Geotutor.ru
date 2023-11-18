@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Нулевой вариант работы{% endblock %}
+
+{% block content %}
+<form action="" method="get">
+    <div class="box inner-offset">
+        <h1 class="mini_title">Нулевой вариант по теме: {{ tema }}</h1>
+        <div>
+        {% for i in data %}
+            <div class="user-score">
+                <h3> {{ i }} </h3>
+            </div>
+        {% endfor %}
+        </div>
+        <br>
+        <button class="btn">
+                <a href="{% url 'teacherReg' %}" id="check1" class="link">Вернуться</a>
+        </button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'main/layout2.html' %}
+{% block title %} Этот логин уже используется {% endblock %}
+{% block content %}
+
+    <div class="box inner-offset">
+        </br>
+        </br>
+        <h2 align="center"> УВЫ! </h2></br>
+        <h2 align="center"> Такой логин уже зарегистрирован, придумайте другой. </h2></br>
+        <form action="" method="get">
+             <a href="{% url 'teacherRegist' %}" class="reset link border"> ЯСНО </a>
+        </form>
+    </div>
+{% endblock %}

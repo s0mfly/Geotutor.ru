@@ -1,0 +1,14 @@
+{% extends 'main/layout2.html' %}
+{% block title %} такой пароль не существует {% endblock %}
+{% block content %}
+
+    <div class="box inner-offset">
+        <h2 align="center"> УВЫ! </h2></br>
+        <h2 align="center"> Такого пароля не существует( </h2></br>
+        <div>
+                    <button class="btn">
+            <a href="{% url 'teacherTask' %}" id = "butt2" class="link"> Вернуться </a>
+                </button>
+        </div>
+    </div>
+{% endblock %}

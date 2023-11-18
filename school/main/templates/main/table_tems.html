@@ -1,0 +1,33 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Таблица лидеров{% endblock %}
+
+{% block content %}
+    <div class="score">
+        <p>Перед тобой таблица лидеров. Ищи себя в списке! Если не нашёл, то есть к чему стремиться <3</p>
+        <p> Топ по 1 теме: </p>
+        {% for i in mas1 %}
+        <h4> {{ i.0 }} {{ i.1 }} {{ i.2 }}</h4>
+        <br>
+        <br>
+        {% endfor %}
+        <p> Топ по 2 теме: </p>
+        {% for i in mas2 %}
+        <h4> {{ i.0 }} {{ i.1 }} {{ i.2 }}</h4>
+        <br>
+        <br>
+        {% endfor %}
+        <p> Топ по 3 теме: </p>
+        {% for i in mas3 %}
+        <h4> {{ i.0 }} {{ i.1 }} {{ i.2 }}</h4>
+        <br>
+        <br>
+        {% endfor %}
+        <p> Топ по 4 теме: </p>
+        {% for i in mas4 %}
+        <h4> {{ i.0 }} {{ i.1 }} {{ i.2 }}</h4>
+        <br>
+        <br>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ Article.title }}{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1> Тема 1 </h1>
+        <h4>{{ txt }}</h4>
+        <form action="" method="get">
+            {% csrf_token %}
+             <input name="danotvet" maxlength="16" autocomplete="off" size="5">
+        <button class="btn btn-success btn-sm" type="submit" name="vvod"> ПОДТВЕРДИТЬ </button>
+        </form>
+    </div>
+{% endblock %}

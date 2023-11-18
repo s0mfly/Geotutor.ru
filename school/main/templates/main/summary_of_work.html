@@ -1,0 +1,33 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Сводная таблица{% endblock %}
+
+{% block content %}
+<form action="" method="get">
+    <div class="box inner-offset">
+        <h1 class="mini_title">Сводная таблица</h1>
+        <div class="summary_title"> Название работы: {{ work_name }} </div>
+        <div class="summary_title"> Тема: {{ tema }} </div>
+        <div class="summary_title"> Дата и время доступа к работе: {{ date }}</div>
+        <div class="summary_title"> Отведённое время: {{ time }} минут</div>
+        <br>
+        <div>
+        {% for i in data %}
+            <div class="user-score">
+                <div class="score"> {{ i.0 }}. {{ i.1 }} {{ i.2 }} - Дано ответов: {{ i.3 }}, верные из них: {{ i.4 }} </div>
+                <div class="score"> Работа выполнена на {{ i.5 }}%   Пароль: {{ i.6 }}</div>
+            </div>
+        {% endfor %}
+        </div>
+        <br>
+        <h3>Посмотреть работу подробнее:</h3>
+        <input class="textfield" type="text" id="passwrod" name="password" placeholder='Введите пароль работы' maxlength="25" size="20">
+        <br>
+        <button class="btn btn-success btn" id='check' type="submit" name="check" onclick="Func()">Просмотр</button>
+        <br>
+        <button class="btn">
+                <a href="{% url 'teacherReg' %}" id="check1" class="link">Вернуться</a>
+        </button>
+    </div>
+</form>
+{% endblock %}

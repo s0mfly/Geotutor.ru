@@ -1,0 +1,25 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <form class='login-form' action="" method="get">
+            {% csrf_token %}
+            <h4 id = 'wait'> </h4>
+            {% if not user.is_authenticated %}
+                <div class="login-form">
+                    <h1 class='title'>Войти</h1>
+                    <input class='textfield' type="text" id="inpu" name="lg" placeholder="Логин">
+                    <button class="btn" id='butt1' type="submit" name="intlg">Войти</button>
+                    <button class="btn" id='butt2' type="submit" name="reg">Зарегистрироваться</button>
+                </div>
+            {% else %}
+                <h1 class="title">Добро пожаловать, {{ nm }}!</h1>
+                    <button class="btn">
+                        <a href="{% url 'zada4i_tems' %}" id = "butt4" class="link"> НАЧАТЬ ИГРУ </a>
+                    </button>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

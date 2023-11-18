@@ -1,0 +1,19 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Темы задач{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="box">
+            <h2 class="title">Задачи</h2>
+
+            <a href="{% url 'begin' %}" id = "butt1" class="task-link"> 1. Прямоугольные треугольники </a><br>
+
+            <a href="{% url 'begin2' %}" id = "butt2" class="task-link"> 2. Многоугольники </a><br>
+
+            <a href="{% url 'begin3' %}" id = "butt3" class="task-link"> 3. Описанные окружности </a><br>
+
+            <a href="{% url 'begin4' %}" id = "butt4" class="task-link"> 4. Вписанные окружности </a><br>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'main/layout2.html' %}
+{% block title %} Регистрация {% endblock %}
+{% block content %}
+
+<div class="wrapper">
+    <div class="box">
+        <h1 class="title">Регистрация</h1>
+        <div>Логин должен быть уникальным, по нему вы будете входить в приложение, не забудьте его!</div>
+        <form action="" method="get">
+            {% csrf_token %}
+            <input class="textfield offset" type="text" id="inpu1" name="sur" placeholder='Ваша Фамилия' maxlength="25" size="20">
+            <input class="textfield offset" type="text" id="inpu2" name="name" placeholder='Ваше Имя' maxlength="25" size="20">
+            <input class="textfield offset" type="text" id="inpu3" name="patr" placeholder='Ваше Отчество' maxlength="25" size="20">
+            <input class="textfield offset" type="email" id="inpu4" name="email" placeholder='Ваша электронная почта' maxlength="100" size="20">
+            <input class="textfield offset" type="text" id="inpu5" name="id" placeholder='Придумайте Логин' maxlength="25" size="20">
+            <input class="textfield offset" type="password" id="inpu6" name="password" placeholder='Введите пароль' maxlength="25" size="20">
+            <input class="textfield offset" type="password" id="inpu7" name="password2" placeholder='Введите пароль повторно' maxlength="25" size="20">
+
+
+            <div class="point">Логин должен быть довольно сложным, чтобы он отличался от других и его никто не смог повторить.</div>
+            <div class="point">Если введенный логин уже будет в базе данных, придется заполнить форму заново.</div>
+
+            <button class="btn btn-success btn offset" id='butt1' type="submit" name="intlg" onclick="Func()">Отправить</button>
+
+            <h4 id="wait"></h4>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("inpu1").value = '{{data.0}}';
+    document.getElementById("inpu2").value = '{{data.1}}';
+    document.getElementById("inpu3").value = '{{data.2}}';
+    document.getElementById("inpu4").value = '{{data.3}}';
+    document.getElementById("inpu5").value = '{{data.4}}';
+    document.getElementById("inpu6").value = '{{data.5}}';
+    document.getElementById("inpu7").value = '{{data.6}}';
+
+    function Func() {
+    document.getElementById('butt1').style.display='none';
+    // document.getElementById('butt2').style.display='none';
+    var txt2 = document.getElementById('wait');
+    txt2.innerHTML = 'НЕБОЛЬШОЕ ОЖИДАНИЕ, ПОЖАЛУЙСТА';
+    txt2.style.fontStyle = 'Italic';
+    }
+    </script>
+{% endblock %}

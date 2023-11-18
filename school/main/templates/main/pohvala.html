@@ -1,0 +1,52 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Похвала{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+    <div class="box inner-offset">
+      <br>
+      <br>
+      <div class="user-table">
+            <div class="name"> Ваш результат: </div>
+            <div class="score">{{ scores }}</div>
+        </div>
+      {% if razn < 0  %}
+      <h2> К сожалению, вы не смогли побить свой предыдущий рекорд. Есть к чему стремиться! </h2>
+      {% for i in output %}
+      <div class="pohvala_name">{{ i.0 }}</div>
+      <div class="score">{{ i.1 }}</div>
+      <h3> Ваш ответ: {{ i.2 }} </h3>
+      {% endfor %}
+      <h3> До вашего рекорда не хватило {{ absRazn }} </h3>
+      {% endif %}
+      {% if razn == 0  %}
+      <h2> Вы повторили свой рекорд! </h2>
+      <h3> Правильные ответы: </h3>
+      {% for i in output %}
+      <div class="pohvala_name">{{ i.0 }}</div>
+      <div class="score">{{ i.1 }}</div>
+      <h3> Ваш ответ: {{ i.2 }}</h3>
+      {% endfor %}
+      {% endif %}
+      {% if razn > 0  %}
+      {% if flag == 1 %}
+      <h2> Поздравляем! Вы заслужили похвалу) </h2>
+      {% else %}
+      <h2> Поздравляем! Вы заслужили похвалу) Ваш рекорд побит на {{ razn }}!!!!!!! </h2>
+      {% endif %}
+      <h3> Правильные ответы: </h3>
+      {% for i in output %}
+      <div class="pohvala_name">{{ i.0 }}</div>
+      <div class="score">{{ i.1 }}</div>
+      <h3> Ваш ответ: {{ i.2 }}</h3>
+      {% endfor %}
+      {% endif %}
+      {% if pos <= 3 %}
+      <a href="{% url 'kubok' %}" id = "to_kubok" class="reset link border"> Нажмите сюда!!! </a><br>
+      {% else %}
+      <a href="{% url 'zada4i_tems' %}" id = "butt4" class="reset link border"> К темам </a><br>
+      <a href="{% url 'table' %}" id = "butt5" class="reset link border"> К таблице лидеров </a>
+      {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Таблица лидеров{% endblock %}
+
+{% block content %}
+
+    <div class="box inner-offset">
+        <h1 class="title">Таблица лидеров</h1>
+        <p>Перед тобой таблица лидеров. Ищи себя в списке! Если не нашёл, то есть к чему стремиться <3</p>
+        <div class="highlight"> Топ по 1 теме: </div>
+        <div>
+        {% for i in mas1 %}
+            <div class="user-table">
+                <div class="name">{{ i.0 }} {{ i.1 }} {{ i.2 }}</div>
+                <div class="score">{{ i.3 }}</div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="highlight"> Топ по 2 теме: </div>
+        <div>
+        {% for i in mas2 %}
+        <div class="user-table">
+            <div class="name">{{ i.0 }} {{ i.1 }} {{ i.2 }}</div>
+            <div class="score">{{ i.3 }}</div>
+        </div>
+        {% endfor %}
+        </div>
+        <div class="highlight"> Топ по 3 теме: </div>
+        <div>
+        {% for i in mas3 %}
+            <div class="user-table">
+                <div class="name">{{ i.0 }} {{ i.1 }} {{ i.2 }}</div>
+                <div class="score">{{ i.3 }}</div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="highlight"> Топ по 4 теме: </div>
+        <div>
+        {% for i in mas4 %}
+            <div class="user-table">
+                <div class="name">{{ i.0 }} {{ i.1 }} {{ i.2 }}</div>
+                <div class="score">{{ i.3 }}</div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="highlight"> Общий топ </div>
+        <div>
+        {% for i in masSum %}
+            <div class="user-table">
+                <div class="name">{{ i.0 }} {{ i.1 }} {{ i.2 }}</div>
+                <div class="score">{{ i.3 }}</div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

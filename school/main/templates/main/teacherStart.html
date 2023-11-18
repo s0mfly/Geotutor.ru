@@ -1,0 +1,50 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %}Начальная{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <form class='login-form' action="" method="get">
+            {% csrf_token %}
+            {% if not user.is_authenticated %}
+                <div class="login-form">
+                    <h1 class='title'>Войти</h1>
+                    <input class='textfield' type="text" id="inpu" name="lg" placeholder="Логин">
+                    <input class='textfield' type="password" id="get_password" name="password" placeholder="Пароль">
+                    <button class="btn" id='butt1' type="submit" name="intlg1" onclick="Func()">Войти</button>
+                    <button class="btn" id='butt2' type="submit" name="reg1" onclick="Func()">Зарегистрироваться</button>
+                                <h4 id = 'wait'> </h4>
+                </div>
+            {% else %}
+                <h1 class="title">Добро пожаловать, {{ nm }}!</h1>
+                                <button class="btn">
+                <a href="{% url 'createWork' %}" id="butt11" class="link">Создать работу для ученик(a/ов)</a>
+                    </button>
+                <button class="btn">
+                <a href="{% url 'StartToCheck' %}" id="check" class="link">Просмотр работы ученика</a>
+                    </button>
+                                <button class="btn">
+                <a href="{% url 'predCheckStartWork' %}" id="check2" class="link">Просмотр нулевого варианта стартовой работы</a>
+                    </button>
+                                <button class="btn">
+                <a href="{% url 'startToCheck2' %}" id="check_summary" class="link">Просмотр сводной таблицы для работы</a>
+                    </button>
+                <a href="{% url 'change_password' %}" class="link"><div>Изменить пароль учётной записи</div></a>
+<!--                <button class="btn">-->
+<!--                <a href="{% url 'teacherReg' %}" id = "buttt2" class="link"> Просмотреть работы учеников</a>-->
+<!--                    </button>-->
+            {% endif %}
+        </form>
+    </div>
+
+<script>
+        function Func() {
+        document.getElementById('butt1').style.display='none';
+        document.getElementById('butt2').style.display='none';
+        var txt2 = document.getElementById('wait');
+        txt2.innerHTML = 'НЕБОЛЬШОЕ ОЖИДАНИЕ, ПОЖАЛУЙСТА';
+        txt2.style.fontStyle = 'Italic';
+        }
+    </script>
+
+{% endblock %}

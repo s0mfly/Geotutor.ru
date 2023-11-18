@@ -1,0 +1,25 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %} Ваш итог {% endblock %}
+
+{% block content %}
+
+    <div class="box inner-offset">
+        <h1 class="title"> Итоговые ответы </h1>
+        <div class="highlight"> Задачи и ответы: </div>
+        <div>
+        {% for i in otveti %}
+            <div class="user-score">
+                <div class="highlight"> Задача № {{ i.0 }}: </div>
+                <div> {{ i.1 }} </div>
+                <div class="score"> Ваш ответ: {{ i.2 }} </div>
+                <div class="score"> Правильный ответ: {{ i.3 }} </div>
+            </div>
+        {% endfor %}
+        <h2> Работа выполнена на {{ itog }} процентов!</h2>
+        </div>
+                    <button class="btn">
+            <a href="{% url 'studentStart' %}" id = "butt2" class="link"> Вернуться </a>
+                </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+      <div id="timer" class="timer">0 часов 0 минут 0 секунд</div>
+    <form action="" method="get">
+        <div class="wrapper">
+            <div class="box">
+                {% for task in txt %}
+                    <div style="margin:0px 15px 0px 15px;">{{task.1}}</div>
+                    <input class='textfield offset' type="number" id="inpu0" name={{task.0}} value='' placeholder='Введите ответ к задаче' maxlength="30" size="20">
+                {% endfor %}
+                <h4 id="wait"></h4>
+                <button class="btn btn-success btn" id = 'butt1' type="submit" name="answers1" onclick="Func()">Отправить</button>
+
+            </div>
+        </div>
+    </form>
+
+  <script>
+    let startTime = 0;
+    let timer = setInterval(function() {
+      startTime++;
+      let hours = Math.floor(startTime / 3600);
+      let minutes = Math.floor((startTime % 3600) / 60);
+      let seconds = startTime % 60;
+      document.getElementById('timer').innerText = hours + " часов " + minutes + " минут " + seconds + " секунд";
+    }, 1000);
+
+    function Func() {
+    document.getElementById('butt1').style.display='none';
+    var txt2 = document.getElementById('wait');
+    txt2.innerHTML = 'НЕБОЛЬШОЕ ОЖИДАНИЕ, ПОЖАЛУЙСТА';
+    txt2.style.fontStyle = 'Italic';
+    }
+    </script>
+{% endblock %}

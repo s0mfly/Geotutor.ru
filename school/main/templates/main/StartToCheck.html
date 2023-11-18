@@ -1,0 +1,27 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %}Ввод данных о работе{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <form class='login-form' action="" method="get">
+            {% csrf_token %}
+            <form action="" method="get">
+                    <input class="textfield" type="text" id="passwrod" name="password" placeholder='Введите пароль работы' maxlength="25" size="20">
+
+                    <button class="btn btn-success btn" id='check' type="submit" name="check" onclick="Func()">Просмотр</button>
+                    <h4 id="wait"></h4>
+                </form>
+        </form>
+    </div>
+
+<script>
+        function Func() {
+        document.getElementById('check').style.display='none';
+        // document.getElementById('butt2').style.display='none';
+        var txt2 = document.getElementById('wait');
+        txt2.innerHTML = 'НЕБОЛЬШОЕ ОЖИДАНИЕ, ПОЖАЛУЙСТА';
+        txt2.style.fontStyle = 'Italic';
+        }
+    </script>
+{% endblock %}

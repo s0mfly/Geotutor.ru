@@ -1,0 +1,14 @@
+{% extends 'main/layout2.html' %}
+{% block title %} Ошибка {% endblock %}
+{% block content %}
+
+    <div class="box inner-offset">
+        <h2 align="center"> УВЫ! </h2></br>
+        <h2 align="center"> {{ mess }} </h2></br>
+        <div>
+                    <button class="btn">
+            <a href="{% url 'summary_of_work' %}" id = "butt2" class="link"> Вернуться </a>
+                </button>
+        </div>
+    </div>
+{% endblock %}

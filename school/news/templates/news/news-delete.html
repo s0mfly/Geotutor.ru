@@ -1,0 +1,12 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1>Поле для ответа</h1>
+        <form method="post">
+            {% csrf_token %}<br>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'main/layout2.html' %}
+
+{% block title %}Просмотр нулевого варианта работы{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+            {% csrf_token %}
+            <form action="" method="get">
+                    <div>
+                        <h2><strong>Выберите тему нулевого варианта</strong></h2>
+                        <select name="tema">
+                            <option value="7" disabled>7 класс</option>
+                            <option value="7start">Стартовая работа 7 класс</option>
+                            <option value="8" disabled>8 класс</option>
+                            <option value="8start">Стартовая работа 8 класс</option>
+                            <option value="9" disabled>9 класс</option>
+                            <option value="9start">Стартовая работа 9 класс</option>
+                            <option value="10" disabled>10 класс</option>
+                            <option value="10start">Стартовая работа 10 класс</option>
+                        </select>
+                    </div>
+                <br>
+                    <button class="btn btn-success btn" id='check' type="submit" name="check" onclick="Func()">Просмотр</button>
+                    <h4 id="wait"></h4>
+                </form>
+    </div>
+
+<script>
+        function Func() {
+        document.getElementById('check').style.display='none';
+        // document.getElementById('butt2').style.display='none';
+        var txt2 = document.getElementById('wait');
+        txt2.innerHTML = 'НЕБОЛЬШОЕ ОЖИДАНИЕ, ПОЖАЛУЙСТА';
+        txt2.style.fontStyle = 'Italic';
+        }
+    </script>
+{% endblock %}
