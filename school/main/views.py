@@ -77,6 +77,7 @@ def begin(request):
         uz.save()
         request.session['ti_contr'] = time.time()
         request.session['non_zad'] = 1
+        request.session['flag_pos'] = 0
         return redirect('zada4i')
     return render(request, 'main/go.html')
 
@@ -99,24 +100,38 @@ def zada4i(request):
         for i in answer:
             ot.append(answer[i])
         ot = ot[:-1]
+        for i in range(len(ot)):
+            if ot[i] == '':
+                ot[i] = 0
         for i in range(len(otvet)):
-            if int(float(otvet[i]) * 1000) / 1000 == int(float(ot[i]) * 1000) / 1000:
+            if int(int(otvet[i]) * 1000) / 1000 == int(int(ot[i]) * 1000) / 1000:
                 count += 1
         tm += 1000 * (4 - count)  # 4 - кол-во задач !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         uz = Polzakt.objects.get(idpolz=request.user.username)
         str_rec = uz.pole3.split('$')
         rec = [round(float(i)) for i in str_rec]
-        print(f'{rec=}')
         razn = round((rec[request.session['non_zad'] - 1] - tm))
         if rec[request.session['non_zad'] - 1] == 10000:
             flag = 1
-        print(f'{razn=}')
-        print(f'{tm=}')
         absRazn = -razn
         sm = 0
         for i in str_rec[:-1]:
             sm += int(i)
         str_rec[-1] = str(sm)
+
+        ### находим позицию для старого кол-ва очков
+
+        allPolz = Polzakt.objects.all()
+        mas = [[int(k) for k in i.pole3.split('$')] + [i.idpolz] for i in allPolz]
+        usName = request.user.username
+
+        last_position = 0
+        mas.sort(key=lambda x: x[request.session['non_zad'] - 1])
+        for i in range(len(mas)):
+            if mas[i][-1] == usName:
+                last_position = i + 1
+                break
+
         if razn > 0:
             rec[request.session['non_zad'] - 1] = round(tm)
             rec[-1] -= razn
@@ -133,16 +148,19 @@ def zada4i(request):
 
         allPolz = Polzakt.objects.all()
         mas = [[int(k) for k in i.pole3.split('$')] + [i.idpolz] for i in allPolz]
-        usName = request.user.username
 
         mas.sort(key=lambda x: x[request.session['non_zad'] - 1])
         for i in range(len(mas)):
             if mas[i][-1] == usName:
                 position = i + 1
-                if position <= 3:
-                    request.session['pos'] = position
+                break
+
+        request.session['flag_pos'] = 1 if last_position != position else 0
+        if position <= 3:
+            request.session['pos'] = position
         return render(request, 'main/pohvala.html', {'razn': razn, 'absRazn': absRazn + 1, 'scores': score,
-                                                     'output': output, 'flag': flag, 'pos': position})
+                                                     'output': output, 'flag': flag, 'pos': position,
+                                                     'flag_pos': request.session['flag_pos']})
     return render(request, 'main/zada4i.html', {'txt': text_s})
 
 
@@ -160,7 +178,7 @@ def begin2(request):
     a, b, c, d = sample(alph, 4)
     txt.append('1. Найдите больший угол четырёхугольника ' + a + b + c + d + ', если его все его углы отностся как ' +
                k1 + ':' + k2 + ':' + k3 + ':' + k4 + '.')
-    otv.append(str((360 / (int(k1) + int(k2) + int(k3) + int(k4))) * max(int(k1), int(k2), int(k3), int(k4))))
+    otv.append(str((360 // (int(k1) + int(k2) + int(k3) + int(k4))) * max(int(k1), int(k2), int(k3), int(k4))))
     k = randint(50, 150)
     k1 = randint(50, 150)
     a, b, c, d = sample(alph, 4)
@@ -171,12 +189,12 @@ def begin2(request):
     k1 = randint(50, 120)
     txt.append('3.Найдите отрезок, который соединяет середины диагоналей трапеции, если её основания равны ' +
                str(k) + ' и ' + str(k1) + '.')
-    otv.append(str((k - k1) / 2))
+    otv.append(str((k - k1) // 2))
     k = randint(10, 20)
     k1 = randint(21, 35)
     txt.append('4. Основания трапеции равны ' + str(k) + ' и ' + str(k1) + '. Найдите больший из отрезков, '
                'на которые делит среднюю линию этой трапеции одна из ее диагоналей.')
-    otv.append(str(k1 / 2))
+    otv.append(str(k1 // 2))
     tx = '${!$%^'.join(txt)
     ot = '${!$%^'.join(otv)
     uz = Polzakt.objects.get(idpolz=request.user.username)
@@ -194,11 +212,11 @@ def begin2(request):
 def begin3(request):
     alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     txt, otv = [], []
-    k1 = randint(5, 30)
-    k = randint(int(k1 * 5.2), int(k1 * 5.2) + 50) * 2
+    k1 = randint(5, 30) # радиус вписанной окружности
+    k = randint(int(k1 * 5.2), int(k1 * 5.2) + 50) * 2 # периметр треугольника
     txt.append('1. Периметр треугольника равен ' + str(k) + ', а радиус вписанной окружности равен ' + str(k1) +
                '. Найдите площадь этого треугольника.')
-    otv.append(str((k * k1) / 2))
+    otv.append(str((k * k1) // 2))
     k1 = randint(20, 60)
     x = k1
     while x == k1:
@@ -260,7 +278,7 @@ def begin4(request):
     k, k1 = piffTr[d][f], piffTr[d][f2]
     txt.append('4. Найдите радиус вписанной окружности треугольника ' + c + b + a + ', если его стороны ' + c + a +
                ' и ' + b + c + ' равны ' + str(k) + ' и ' + str(k1) + ' соответственно. Угол ' + c + ' равен 90°.')
-    otv.append(str((k + k1 - piffTr[d][-1]) / 2))
+    otv.append(str((k + k1 - piffTr[d][-1]) // 2))
     tx = '${!$%^'.join(txt)
     ot = '${!$%^'.join(otv)
     uz = Polzakt.objects.get(idpolz=request.user.username)

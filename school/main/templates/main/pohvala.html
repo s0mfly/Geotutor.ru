@@ -49,4 +49,11 @@
       <a href="{% url 'table' %}" id = "butt5" class="reset link border"> К таблице лидеров </a>
       {% endif %}
     </div>
+
+<script>
+
+    localStorage.setItem('flag_pos', {{ flag_pos }})
+
+</script>
+
 {% endblock %}

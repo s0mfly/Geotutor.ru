@@ -6,10 +6,25 @@
 {% load static %}
 {% csrf_token %}
     <div class="box inner-offset">
-        <h1 align="center"> Поздравляем! </h1>
+        <h1 align="center" id="cong"></h1>
         <img style="display: block; margin: auto; max-width: 900px; height: auto; width: 70%" src="{% static 'main/img/47.png' %}">
-        <h2 align="center"> Вы заняли {{ pos }} место в ТОПе!!!!!!!!!! </h2>
+        <h2 align="center" id="mess"></h2>
       <a href="{% url 'zada4i_tems' %}" id = "butt4" class="reset link border"> К темам </a><br>
       <a href="{% url 'table' %}" id = "butt5" class="reset link border"> К таблице лидеров </a>
     </div>
+
+<script>
+    var flag = localStorage.getItem('flag_pos');
+    var txt2 = document.getElementById('mess');
+    var txt1 = document.getElementById('cong');
+    if (flag === '0') {
+        txt2.innerHTML = 'Вы занимаете {{ pos }} место в ТОПе!!!!!!!!!!';
+        txt1.innerHTML = 'Так держать!';
+        txt2.style.fontStyle = 'italic';
+    } else {
+        txt2.innerHTML = 'Вы заняли {{ pos }} место в ТОПе!!!!!!!!!!';
+        txt1.innerHTML = 'Поздравляем!';
+        txt2.style.fontStyle = 'normal';
+    }
+</script>
 {% endblock %}
