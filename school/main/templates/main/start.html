@@ -13,6 +13,9 @@
             <button class="btn">
             <a href="{% url 'studentStart' %}" id = "butt2" class="link"> Войти как ученик </a>
                 </button>
+            {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}" id = "butt5" class="btn_os"> Выход </a>
+            {% endif %}
         </form>
     </div>
 {% endblock %}

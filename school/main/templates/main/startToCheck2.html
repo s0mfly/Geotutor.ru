@@ -9,12 +9,12 @@
             <form action="" method="get">
                 <div class="works">
                 <h4>Работы, доступные для просмотра:</h4>
-                {% for i in data %}
-                <p>{{ i }}</p>
-                {% endfor %}
+                <select name="name_of_work">
+                  {% for i in data %}
+                    <option>{{ i }}</option>
+                  {% endfor %}
+                </select>
                 </div>
-                    <input class="textfield" type="text" id="passwrod" name="name_of_work" placeholder='Введите название работы' maxlength="25" size="20">
-
                     <button class="btn btn-success btn" id='check' type="submit" name="check" onclick="Func()">Просмотр</button>
                     <h4 id="wait"></h4>
                 </form>

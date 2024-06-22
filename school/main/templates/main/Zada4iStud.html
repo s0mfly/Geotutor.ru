@@ -2,7 +2,6 @@
 {% block title %}Ответьте на задание{% endblock %}
 {% block content %}
 
-
 <form action="" method="get">
     <div class="wrapper">
         <div class="box">
@@ -12,34 +11,37 @@
                 <h4  style="margin:0px 15px 0px 15px;" id="tem"> {{tem}} </h4>
                 <h2  style="margin:0px 15px 0px 15px;" id="time">  </h2>
             </aside>
-                    <div style="height:14px;"></div>
-                        {% csrf_token %}
-                         <input type="number" id="inpu" name="otvet" placeholder='{{zn1}}' maxlength="16" autocomplete="off" size="5">
-                        <h4 align="center" id = 'wait'> </h4>
-                        <div>
-                        <button style="margin:0px 15px 0px 15px;" class="btn btn-success" id = 'butt1' type="submit" name="confirm" onclick="Func()"> ПОДТВЕРДИТЬ </button>
-                            <br>
-                        <button style="margin:0px 15px 0px 15px;" class="btn btn-success btn-sm" id = 'butt2' type="submit" name="prop" onclick="Func()"> ОТЛОЖИТЬ </button></br>
-                        <button style="margin:0px 15px 0px 15px;" class="btn btn-success btn-sm" id = 'butt4' type="submit" name="change" onclick="Func()"> ПРОСМОТР, КОРРЕКЦИЯ ОТВЕТОВ </button></br>
-                        <button style="margin:0px 15px 0px 15px;" class="btn btn-danger btn-sm" id = 'butt3' type="submit" name="end" onclick="Func()"> ЗАВЕРШИТЬ </button></br>
-                        </div>
+            <div style="height:14px;"></div>
+            {% csrf_token %}
+            <input  style="margin-left: 15px;"  type="number" id="inpu" name="otvet" placeholder='{{zn1}}' maxlength="16" autocomplete="off" size="5">
+            <h4 align="center" id='wait'> </h4>
+            <div>
+                <button style="margin:0px 15px 0px 15px;" class="btn btn-success" id='butt1' type="submit" name="confirm" onclick="Func()"> ПОДТВЕРДИТЬ </button>
+                <br>
+                <button style="margin:0px 15px 0px 15px;" class="btn btn-success btn-sm" id='butt2' type="submit" name="prop" onclick="Func()"> ОТЛОЖИТЬ </button></br>
+                <button style="margin:0px 15px 0px 15px;" class="btn btn-success btn-sm" id='butt4' type="submit" name="change" onclick="Func()"> ПРОСМОТР, КОРРЕКЦИЯ ОТВЕТОВ </button></br>
+                <button style="margin:0px 15px 0px 15px;" class="btn btn-danger btn-sm" id='butt3' type="submit" name="end" onclick="Func()"> ЗАВЕРШИТЬ </button></br>
+            </div>
         </div>
-
     </div>
+</form>
 
 <!--            <h5 style="font-size: max(12px, 2.0vw); margin-right: auto; margin-left: auto;"> Нажимте на кнопку, дождитесь отображения следующей страницы </h5>-->
 <!--            <h5 style="margin-top: -5px; font-size: max(11px, 1.8vw); margin-right: auto; margin-left: auto;"> Вводите ответ в том формате, который указан в полях ввода </h5>-->
 <!--            <h5 style="margin-top: -5px; font-size: max(11px, 1.8vw); margin-right: auto; margin-left: auto;"> {{tc1}} </h5>-->
 <!--            <h5 style="margin-top: -5px; font-size: max(11px, 1.8vw); margin-right: auto; margin-left: auto;"> {{tc2}} </h5>-->
 <!--            <h5 style="margin-top: -5px; font-size: max(11px, 1.8vw); margin-right: auto; margin-left: auto;"> {{tc3}} </h5>-->
-    </form>
     <style>
     #inpu {width: 5em;}
+
+        body {
+		-ms-user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	    }
     </style>
     <script>
-<!--      var fl=0;-->
-<!--      var ds={{ds}}+1; -->
-<!--      var kor = ds;-->
       var na4 = new Date() - new Date(0);
       localStorage.setItem('timer', {{time}});
 
@@ -59,6 +61,7 @@
         localStorage.setItem('timer', txv-1);
         document.getElementById('time').innerHTML = 'Оставшееся время на выполнение работы: ' +
         String(Math.floor(txv / 3600)) + ' ч ' + String(Math.floor(txv / 60)) + ' мин ' + String(txv % 60) + ' сек ';
+      }
 
     check = Number(localStorage.getItem('timer'));
 
@@ -66,29 +69,7 @@
         location.reload();
     }
 
-<!--        v = Number(localStorage.getItem('vrk'));-->
-<!--          localStorage.setItem('vrk', v+1);-->
-<!--          if (v>10004) {-->
-<!--            document.getElementById('butt1').style.display='';-->
-<!--            document.getElementById('butt2').style.display='';-->
-<!--            document.getElementById('butt3').style.display='';-->
-<!--            document.getElementById('butt4').style.display='';-->
-<!--            document.getElementById('wait').innerHTML = '';-->
-<!--            localStorage.setItem('vrk', 0);
-       }
 
-<!--      //document.getElementById('wait').innerHTML = (new Date() - new Date(0) - na4 - 1000*(kor - ds));-->
-<!--      if ((new Date() - new Date(0) - na4 - 1000*(kor - ds))>2000 || ds <= 0) {location.reload();}-->
-<!--      ds&#45;&#45;;-->
-<!--      if ((grs*2 - ds) > 25 && fl == 0) {-->
-<!--      fl = 1;-->
-<!--      document.getElementById('tem').style.display='none';-->
-<!--      }-->
-<!--      if (ds<=0) {txv='РАБОТА ЗАВЕРШЕНА!';}-->
-<!--      if (ds>0) {-->
-<!--      var txt1 = document.getElementById('id1');-->
-<!--      txt1.innerHTML = txv;-->
-<!--      }-->
       countdownTimer();
       timerId = setInterval(() => countdownTimer(), 1000);
     </script>

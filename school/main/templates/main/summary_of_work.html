@@ -14,20 +14,35 @@
         <div>
         {% for i in data %}
             <div class="user-score">
-                <div class="score"> {{ i.0 }}. {{ i.1 }} {{ i.2 }} - Дано ответов: {{ i.3 }}, верные из них: {{ i.4 }} </div>
-                <div class="score"> Работа выполнена на {{ i.5 }}%   Пароль: {{ i.6 }}</div>
+                <div class="score"> <big> {{ i.0 }}. {{ i.1 }} {{ i.2 }} </big> - Дано ответов: {{ i.3 }}, верные из них: {{ i.4 }} </div>
+                <div class="score" align="left"> Процент правильно выполненных заданий: {{ i.5 }}. Пароль: <button style="width: auto;" class="btn1" name="password" value="{{ i.6 }}" type="submit"> {{ i.6 }} </button> </div>
             </div>
         {% endfor %}
         </div>
         <br>
-        <h3>Посмотреть работу подробнее:</h3>
-        <input class="textfield" type="text" id="passwrod" name="password" placeholder='Введите пароль работы' maxlength="25" size="20">
-        <br>
-        <button class="btn btn-success btn" id='check' type="submit" name="check" onclick="Func()">Просмотр</button>
-        <br>
+        <h3> Для того, чтобы посмотреть работу подробно, нажмите на ее пароль. </h3>
+<!--        <select name="password">-->
+<!--            {% for i in passwords %}-->
+<!--            <option>{{ i }}</option>-->
+<!--            {% endfor %}-->
+<!--        </select>-->
+<!--        <button class="btn btn-success btn" id='check' type="submit" name="check" onclick="Func()">Просмотр</button>-->
         <button class="btn">
                 <a href="{% url 'teacherReg' %}" id="check1" class="link">Вернуться</a>
         </button>
     </div>
 </form>
+
+<script>
+      na4 = new Date() - new Date(0);
+      function countdownTimer() {
+          if (new Date() - new Date(0) - na4 > 7000){
+                na4 = new Date() - new Date(0);
+                location.reload();}
+                }
+      countdownTimer();
+      timerId = setInterval(() => countdownTimer(), 1000);
+</script>
+
+
 {% endblock %}

@@ -3,17 +3,47 @@
 {% block title %}Темы задач{% endblock %}
 
 {% block content %}
+<form action="" method="get">
     <div class="wrapper">
         <div class="box">
-            <h2 class="title">Задачи</h2>
+            {% csrf_token %}
+            <h2 class="title" id="zada4i"></h2>
 
-            <a href="{% url 'begin' %}" id = "butt1" class="task-link"> 1. Прямоугольные треугольники </a><br>
+            <button class="btn btn-success btn" id = 'butt0' type="submit" name="tem0"
+                                          > 1. Прямоугольные треугольники </button>
 
-            <a href="{% url 'begin2' %}" id = "butt2" class="task-link"> 2. Многоугольники </a><br>
 
-            <a href="{% url 'begin3' %}" id = "butt3" class="task-link"> 3. Описанные окружности </a><br>
+            <button class="btn btn-success btn" id = 'butt1' type="submit" name="tem1"
+                              >  2. Многоугольники </button>
 
-            <a href="{% url 'begin4' %}" id = "butt4" class="task-link"> 4. Вписанные окружности </a><br>
+
+            <button class="btn btn-success btn" id = 'butt2' type="submit" name="tem2"
+                              > 3. Описанные окружности </button>
+
+
+            <button class="btn btn-success btn" id = 'butt3' type="submit" name="tem3"
+                                          > 4. Вписанные окружности </button>
+
+
+            <button class="btn btn-success btn" id = 'go' type="submit" name="go" > Вперед! </button>
+
+
         </div>
     </div>
+</form>
+<script>
+    fl = {{flag}};
+    var txt2 = document.getElementById('zada4i');
+    if (fl == 1) {
+        document.getElementById('butt0').style.display='none';
+        document.getElementById('butt1').style.display='none';
+        document.getElementById('butt2').style.display='none';
+        document.getElementById('butt3').style.display='none';
+        document.getElementById('zada4i').innerHTML = 'Пора начать!';
+        }
+    if (fl == 0) {
+        document.getElementById('go').style.display='none';
+        txt2.innerHTML = 'Задачи';
+        }
+</script>
 {% endblock %}

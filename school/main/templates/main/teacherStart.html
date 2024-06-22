@@ -18,7 +18,7 @@
             {% else %}
                 <h1 class="title">Добро пожаловать, {{ nm }}!</h1>
                                 <button class="btn">
-                <a href="{% url 'createWork' %}" id="butt11" class="link">Создать работу для ученик(a/ов)</a>
+                <a href="{% url 'createWork' %}" id="butt11" class="link">Сформировать работу для ученик(a/ов)</a>
                     </button>
                 <button class="btn">
                 <a href="{% url 'StartToCheck' %}" id="check" class="link">Просмотр работы ученика</a>
@@ -30,6 +30,7 @@
                 <a href="{% url 'startToCheck2' %}" id="check_summary" class="link">Просмотр сводной таблицы для работы</a>
                     </button>
                 <a href="{% url 'change_password' %}" class="link"><div>Изменить пароль учётной записи</div></a>
+                <a href="{% url 'logout' %}" id = "butt5" class="btn_os"> Выход </a>
 <!--                <button class="btn">-->
 <!--                <a href="{% url 'teacherReg' %}" id = "buttt2" class="link"> Просмотреть работы учеников</a>-->
 <!--                    </button>-->

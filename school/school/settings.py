@@ -138,13 +138,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mail.ru'
+# EMAIL_BACKEND = 'pop3.beget.com'
+EMAIL_HOST = 'smtp.beget.com'
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True  # Использовать TLS-шифрование (опционально)
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'geometrix2023_2024@mail.ru'
-EMAIL_HOST_PASSWORD = 'u7kqkdG9nyJyb9nnCx4h'
+EMAIL_HOST_USER = 'geotutor@geotutor.ru'
+EMAIL_HOST_PASSWORD = 'BestSite202n!'
 
 TELEGRAM_BOT_TOKEN = '6565010045:AAEDNDSr8auFdpAloDoihYC2A8HwsqWX8Vc'
 TELEGRAM_CHAT_ID = '914614230'

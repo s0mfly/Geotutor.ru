@@ -16,14 +16,8 @@
             <a href="{% url 'home' %}" class="link"><div>Главная</div></a>
             <a href="{% url 'instruction' %}" class="link"><div>Инструкция</div></a>
             <a href="{% url 'developers' %}" class="link"><div>Создатели</div></a>
+            <a href="{% url 'table' %}" class="link"><div>Таблица лидеров</div></a>
         </nav>
-        {% if user.is_authenticated %}
-        <div class="btn_abs-wrapper">
-            <a href="{% url 'logout' %}">
-                <button class="btn btn-abs">Выход</button>
-            </a>
-        </div>
-        {% endif %}
 
     </header>
     <main>

@@ -2,14 +2,23 @@
 {% block title %} Работа создана {% endblock %}
 {% block content %}
 
+<form action="" method="get">
     <div class="box inner-offset">
         <h2 align="center"> Ура! </h2></br>
         <h2 align="center"> Работа создана! </h2></br>
         <h2 align="center"> Парол(ь/и) для доступа отправлен(ы) Вам на почту! </h2></br>
+        <button class="btn btn-success btn" id ="save" type="submit" name="save"  onclick="hideButton()"> Сохранить варианты в Word </button>
+        <br>
         <div>
                     <button class="btn">
             <a href="{% url 'teacherReg' %}" id = "butt2" class="link"> Вернуться </a>
                 </button>
         </div>
     </div>
+</form>
+    <script>
+        function hideButton() {
+            document.getElementById('save').style.display = 'none';
+        }
+    </script>
 {% endblock %}

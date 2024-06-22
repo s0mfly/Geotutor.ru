@@ -53,6 +53,7 @@ urlpatterns = [
     path('CheckStartWork/', views.CheckStartWork, name='CheckStartWork'),
     path('predCheckStartWork/', views.predCheckStartWork, name='predCheckStartWork'),
     path('kubok/', views.kubok, name='kubok'),
+    path('workCreated/', views.workCreated, name='workCreated'),
 ]
 
 ### urls идут по последовательности их создания

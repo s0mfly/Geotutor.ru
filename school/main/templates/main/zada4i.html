@@ -3,9 +3,16 @@
 {% block title %}Задачи{% endblock %}
 
 {% block content %}
-    {% csrf_token %}
-      <div id="timer" class="timer">0 часов 0 минут 0 секунд</div>
+{% csrf_token %}
+
     <form action="" method="get">
+                    <div class="column-left">
+                </div>
+                <div class="column-right">
+                    <div id="timer">0 часов 0 минут 0 секунд</div>
+                </div>
+                <div style="clear: left; clear: right"></div>
+<!--                 <div style="clear: right"></div>-->
         <div class="wrapper">
             <div class="box">
                 {% for task in txt %}
@@ -18,6 +25,33 @@
             </div>
         </div>
     </form>
+
+    <style>
+        .column-left {
+        float: left;
+        width: 0%;
+        text-align: left;
+        }
+
+        .column-right {
+          float: right;
+          text-align: center;
+          background-color: #f2f2f2;
+          border: 2px solid #ccc;
+          color: #0000ff;
+          padding: 5px;
+          margin-right: min(10px, 2%);
+          margin-top: 10px;
+        }
+
+        body {
+		-ms-user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	    }
+
+    </style>
 
   <script>
     let startTime = 0;

@@ -9,6 +9,173 @@ from django.conf import settings
 from datetime import datetime, timedelta
 from django.http import HttpResponse
 import requests
+from docx import Document
+from docx.shared import Mm
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from django.utils.encoding import smart_str
+
+
+class CreateTasks:
+    def __init__(self, n):
+        if n == 1:
+            alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            txt, otv = [], []
+            k = randint(2, 9)
+            piffTr = [[3, 4, 5], [5, 12, 13], [8, 15, 17]]
+            k1 = randint(0, 2)
+            count = randint(1, 3)
+            if count == 1:
+                txt.append('1. В прямоугольном треугольнике катеты равны ' + str(piffTr[k1][0] * k) + ' и ' + str(
+                    piffTr[k1][1] * k)
+                           + '. Найдите гипотенузу без использования теоремы Пифагора.')
+                otv.append(str(piffTr[k1][2] * k))
+            if count == 2:
+                txt.append('1. В прямоугольном треугольнике катет равен ' + str(
+                    piffTr[k1][0] * k) + ' и гипотенуза равна ' + str(piffTr[k1][2] * k)
+                           + '. Найдите другой катет без использования теоремы Пифагора.')
+                otv.append(str(piffTr[k1][1] * k))
+            if count == 3:
+                txt.append(
+                    '1. В прямоугольном треугольнике катет равен ' + str(
+                        piffTr[k1][1] * k) + ' и гипотенуза равна ' + str(
+                        piffTr[k1][2] * k)
+                    + '. Найдите другой катет без использования теоремы Пифагора.')
+                otv.append(str(piffTr[k1][0] * k))
+            k = randint(2, 9)
+            piffTr.remove(piffTr[k1])
+            k1 = randint(0, 1)
+            txt.append(
+                '2. Найдите катет в прямоугольном треугольнике, гипотенуза в котором равна ' + str(piffTr[k1][2] * k) +
+                ', а другой катет равен ' + str(piffTr[k1][0] * k) + '.')
+            otv.append(str(piffTr[k1][1] * k))
+            a, b, c, m = sample(alph, 4)
+            k, k1 = randint(5, 75), randint(7, 75)
+            txt.append('3. Высоты ' + a + a + '1' + ' и ' + b + b + '1' +
+                       ' треугольника ' + a + b + c + ' пересекаются в точке ' + m + '. Найдите ' + a + b + m +
+                       ', если ' + a + ' = ' + str(k) + '˚, ' + b + ' = ' + str(k1) + '˚')
+            otv.append(str(180 - (90 - k) - (90 - k1)))
+            a, b, c, d = sample(alph, 4)
+            k = randrange(2, 78, 2)
+            count = randint(1, 4)
+            if count == 1:
+                txt.append('4. В треугольник ' + c + a + b + ', прямым углом в котором явлеятся угол ' + b +
+                           ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + a + d + b +
+                           ', если угол ' + a + c + b + ' равен ' + str(k) + '°.')
+                otv.append(str(180 - 45 - ((90 - k) // 2)))
+            if count == 2:
+                txt.append('4. В треугольник ' + b + c + a + ', прямым углом в котором явлеятся угол ' + b +
+                           ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + a + d + b +
+                           ', если угол ' + b + a + c + ' равен ' + str(k) + '°.')
+                otv.append(str(180 - 45 - (k // 2)))
+            if count == 3:
+                txt.append('4. В треугольник ' + c + a + b + ', прямым углом в котором явлеятся угол ' + b +
+                           ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + b + d + c +
+                           ', если угол ' + a + c + b + ' равен ' + str(k) + '°.')
+                otv.append(str(180 - 45 - (k // 2)))
+            if count == 4:
+                txt.append('4. В треугольник ' + a + b + c + ', прямым углом в котором явлеятся угол ' + b +
+                           ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + b + d + c +
+                           ', если угол ' + b + a + c + ' равен ' + str(k) + '°.')
+                otv.append(str(180 - 45 - ((90 - k) // 2)))
+
+        if n == 2:
+            alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            numbers = '123456789'
+            txt, otv = [], []
+            k1, k2, k3, k4 = 7, 7, 7, 7
+            while 360 % (int(k1) + int(k2) + int(k3) + int(k4)) != 0:
+                k1, k2, k3, k4 = sample(numbers, 4)
+            a, b, c, d = sample(alph, 4)
+            txt.append(
+                '1. Найдите больший угол четырёхугольника ' + a + b + c + d + ', если его все его углы отностся как ' +
+                k1 + ':' + k2 + ':' + k3 + ':' + k4 + '.')
+            otv.append(str((360 // (int(k1) + int(k2) + int(k3) + int(k4))) * max(int(k1), int(k2), int(k3), int(k4))))
+            k = randint(50, 150)
+            k1 = randint(50, 150)
+            a, b, c, d = sample(alph, 4)
+            txt.append(
+                '2. Найдите периметр четырёхугольника ' + a + b + c + d + ', в который вписана окружность. ' + a + b +
+                ' = ' + str(k) + ' и ' + c + d + ' = ' + str(k1) + '.')
+            otv.append(str(2 * (k1 + k)))
+            k = randint(129, 179)
+            k1 = randint(50, 120)
+            txt.append('3.Найдите отрезок, который соединяет середины диагоналей трапеции, если её основания равны ' +
+                       str(k) + ' и ' + str(k1) + '.')
+            otv.append(str((k - k1) // 2))
+            k = randint(10, 20)
+            k1 = randint(21, 35)
+            txt.append('4. Основания трапеции равны ' + str(k) + ' и ' + str(k1) + '. Найдите больший из отрезков, '
+                                                                                   'на которые делит среднюю линию этой трапеции одна из ее диагоналей.')
+            otv.append(str(k1 // 2))
+
+        if n == 3:
+            alph = [chr(i) for i in range(65, 91)]
+            txt, otv = [], []
+            k1 = randint(5, 30)  # радиус вписанной окружности
+            k = randrange(int(k1 * 10.4) + int(k1 * 10.4) % 2, int(k1 * 10.4) + 50, 2)  # периметр треугольника
+            txt.append(f'1. Периметр треугольника равен {k}, а радиус вписанной окружности равен {k1}. '
+                       f'Найдите площадь треугольника')
+            otv.append(str((k * k1) // 2))
+            k1 = randint(20, 60)
+            x = k1
+            while x == k1:
+                x = randint(20, 60)
+            k = (k1 + x) * 2
+            txt.append(
+                '2. В четырёхугольник, периметр которого равен ' + str(k) + ' , вписана окружность, одна его сторона '
+                                                                            'равна ' +
+                str(k1) + '. Найдите длину стороны, которая лежит напротив неё.')
+            otv.append(str(x))
+            k = randrange(22, 36, 2)
+            k1 = randrange(38, 56, 2)
+            k2 = randrange(6, 20, 2)
+            txt.append('3. В равнобедренной трапеции провели высоту, делящую два основанию пополам. Найдите эту высоту,'
+                       ' если в получившиеся четырёхугольники вписали окружность и основания равны ' + str(
+                k) + ' и ' + str(k1)
+                       + ' соответственно, а боковая сторона равна ' + str(k2) + '.')
+            otv.append(str(k + k1 - k2))
+            a, b, c, d = sample(alph, 4)
+            k = randint(15, 50)
+            k1 = randint(60, 87)
+            txt.append(
+                '4. Найдите угол ' + a + b + c + ' четырёхугольника ' + d + b + a + c + ', который вписан в окружность,'
+                                                                                        ' если углы ' +
+                c + a + d + ' и ' + a + b + d + ' равны ' + str(k) + '° и ' + str(k1) + '° соответственно.')
+            otv.append(str(k + k1))
+
+        if n == 4:
+            alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            piffTr = [[3, 4, 5], [5, 12, 13], [8, 15, 17]]
+            txt, otv = [], []
+            k = randint(99, 222)
+            txt.append('1. Радиус окружности, описанной около квадрата, равен ' + str(k) + ' корней из 2.'
+                                                                                           ' Найдите длину стороны этого квадрата.')
+            otv.append(str(k * 2))
+            k = randint(79, 234)
+            txt.append(
+                '2. Радиус вписанной в квадрат окружности равен ' + str(k) + ' корней из 2. Найдите радиус окружности, '
+                                                                             'описанной около этого квадрата.')
+            otv.append(str(k * 2))
+            k = randint(90, 169)
+            a, b, c, d = sample(alph, 4)
+            txt.append(
+                '3. Около равнобедренного треугольника ' + b + a + c + ' описана окружность с центром в точке ' + d +
+                '. Найдите угол ' + b + d + c + ', если ' + a + b + ' = ' + b + c + ' и угол ' + a + b + c + ' равен '
+                + str(k) + '°.')
+            otv.append(str(180 - k))
+            a, b, c = sample(alph, 3)
+            d = randint(0, 2)
+            f, f2 = 1, 0
+            k, k1 = piffTr[d][f], piffTr[d][f2]
+            txt.append(
+                '4. Найдите радиус вписанной окружности треугольника ' + c + b + a + ', если его стороны ' + c + a +
+                ' и ' + b + c + ' равны ' + str(k) + ' и ' + str(k1) + ' соответственно. Угол ' + c + ' равен 90°.')
+            otv.append(str((k + k1 - piffTr[d][-1]) // 2))
+
+        print(txt)
+        self.tx = '${!$%^'.join(txt)
+        self.ot = '${!$%^'.join(otv)
 
 
 def begin(request):
@@ -50,17 +217,17 @@ def begin(request):
     if count == 1:
         txt.append('4. В треугольник ' + c + a + b + ', прямым углом в котором явлеятся угол ' + b +
                    ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + a + d + b +
-                   ', если угол ' + a + c + b + ' равен ' + str(k) + ' градусов.')
+                   ', если угол ' + a + c + b + ' равен ' + str(k) + '°.')
         otv.append(str(180 - 45 - ((90 - k) // 2)))
     if count == 2:
         txt.append('4. В треугольник ' + b + c + a + ', прямым углом в котором явлеятся угол ' + b +
                    ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + a + d + b +
-                   ', если угол ' + b + a + c + ' равен ' + str(k) + ' градусов.')
+                   ', если угол ' + b + a + c + ' равен ' + str(k) + '°.')
         otv.append(str(180 - 45 - (k // 2)))
     if count == 3:
         txt.append('4. В треугольник ' + c + a + b + ', прямым углом в котором явлеятся угол ' + b +
                    ', вписана окружность с центром в точке ' + d + '. Найдите угол ' + b + d + c +
-                   ', если угол ' + a + c + b + ' равен ' + str(k) + ' градусов.')
+                   ', если угол ' + a + c + b + ' равен ' + str(k) + '°.')
         otv.append(str(180 - 45 - (k // 2)))
     if count == 4:
         txt.append('4. В треугольник ' + a + b + c + ', прямым углом в котором явлеятся угол ' + b +
@@ -321,7 +488,7 @@ def regist(request):
                     send_mail(
                         'Оповещение для ученика платформы GeoTutor!',
                         'Добро пожаловать! Мы рады приветствовать вас на нашей платформе)',
-                        'geometrix2023_2024@mail.ru',
+                        'geotutor@geotutor.ru',
                         [p],
                         fail_silently=False,
                     )
@@ -424,7 +591,27 @@ def about(request):
 
 
 def zada4i_tems(request):
-    return render(request, 'main/zada4i_tems.html')
+    answer = request.GET
+    print(answer)
+    for i in range(4):
+        if 'tem' + str(i) in answer:
+            request.session['perem'] = i
+            return render(request, 'main/zada4i_tems.html', {'flag': 1})
+
+    if 'go' in answer:
+        i = request.session['perem']
+        Tasks = CreateTasks(i + 1)
+        tx = Tasks.tx
+        ot = Tasks.ot
+        uz = Polzakt.objects.get(idpolz=request.user.username)
+        uz.pole1 = tx
+        uz.pole2 = ot
+        request.session['ti_contr'] = time.time()
+        request.session['non_zad'] = i + 1
+        request.session['flag_pos'] = 0
+        uz.save()
+        return redirect('zada4i')
+    return render(request, 'main/zada4i_tems.html', {'flag': 0})
 
 
 def developers(request):
@@ -504,7 +691,7 @@ def predCheckStartWork(request):
             if count == 1:
                 txt.append('Найдите площадь квадрата, если его периметр равен ***.')
             elif count == 2:
-                txt.append('Найдите периметр квадрата. если его площадь равна ***.')
+                txt.append('Найдите периметр квадрата, если его площадь равна ***.')
 
             count = randint(1, 4)
             if count == 1:
@@ -552,16 +739,16 @@ def predCheckStartWork(request):
                 a, b, c, d = sample(alph, 4)
                 txt.append('Внутри угла ' + str(a) + str(b) + str(c) + ' проведен луч ' + str(b) + str(d) +
                            '. Найти угол ' + str(a) + str(b) + str(c) + ', если угол ' + str(a) +
-                           str(b) + str(d) + ' равен *** градусов, '
+                           str(b) + str(d) + ' равен ***°, '
                                                                   'а угол ' + str(c) + str(b) + str(d) + ' на ***'
-                                                                                                ' градусов больше.')
+                                                                                                '° больше.')
             elif count == 2:
                 a, b, c, d = sample(alph, 4)
                 txt.append('Внутри угла ' + str(a) + str(b) + str(c) + ' проведен луч ' + str(b) + str(d) +
                            '. Найти угол ' + str(a) + str(b) + str(d) + ', если угол ' + str(a) +
-                           str(b) + str(c) + ' равен *** градусов, '
+                           str(b) + str(c) + ' равен ***°, '
                                                                   'а угол ' + str(c) + str(b) + str(d) + ' на ***'
-                                                                                            ' градусов меньше.')
+                                                                                            '° меньше.')
 
             count = randint(1, 2)
             if count == 1:
@@ -760,12 +947,12 @@ def predCheckStartWork(request):
             x = randrange(40, 120, 2)
             if count == 1:
                 txt.append('В равнобедренном треугольнике ' + str(a) + str(b) + str(c) +
-                           ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен *** градусов. '
+                           ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен ***°. '
                                                                                         'Найдите величину угла ' + str(
                     a) + '.')
             if count == 2:
                 txt.append('В равнобедренном треугольнике ' + str(a) + str(b) + str(c) +
-                           ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен *** градусов. '
+                           ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен ***°. '
                                                                                                          'Найдите величину угла ' + str(
                     c) + '.')
 
@@ -1029,10 +1216,67 @@ def predCheckStartWork(request):
                            ' и ' + str(c) + str(v_c) + '. '
                                                        'Найдите длину вектора ' + str(a) + ' - ' + str(
                     b) + ' + ' + str(c) + '.')
+
+        if tema == 'demo':
+            count = randint(1, 2)
+            lst = [9, 16, 25, 36, 49, 64, 81]
+            k = randint(1, 7)
+            a = lst[k - 1]
+            if count == 1:
+                txt.append(f'Сторона квадрата равна {str(int(a ** 0.5))}. Найдите его площадь.')
+                otv.append(str(a))
+            elif count == 2:
+                txt.append(f'Площадь квадрата равна {str(a)}. Найдите его сторону.')
+                otv.append(str(int(a ** 0.5)))
+
+            count = randint(1, 2)
+            a, b = randint(4, 10), randint(3, 9)
+            if count == 1:
+                txt.append(
+                    f'Площадь прямоугольника со стороной {str(a)} равна {str(a * b)}. Найдите сторону смежную с данной.')
+                otv.append(str(b))
+            elif count == 2:
+                txt.append(
+                    f'Найдите плодащь прямоугольника, если его длина равна {str(max(a, b))}, а ширина равна {str(min(a, b))}.')
+                otv.append(str(a * b))
+
+            a, h = randrange(2, 10, 2), randint(1, 6)
+            txt.append(
+                f'Найдите площадь треугольника, основание которого равно {str(a)}, а высота, проведённая к нему равна {str(h)}.')
+            otv.append(str(int(0.5 * a * h)))
+
+            count = randint(1, 2)
+            if count == 1:
+                a = randint(10, 15)
+                b = randint(5, 9)
+                txt.append(
+                    f'Найдите периметр равнобедренного треугольника с основанием {str(c)} и боковой стороной {str(a)}.')
+                otv.append(str(a * 2 + c))
+            elif count == 2:
+                a = randint(5, 15)
+                txt.append(f'Найдите периметр равностороннего треугольника со стороной {str(a)}.')
+                otv.append(str(a * 3))
+
+            count = randint(1, 4)
+            a = randint(3, 7)
+            if count == 1:
+                txt.append(f'Палку длиной {a * 3} разрезали на 3 равные части. Найдите их длину.')
+                otv.append(str(a))
+            elif count == 2:
+                txt.append(f'Палку длиной {a * 4} разрезали на 4 равные части. Найдите их длину.')
+                otv.append(str(a))
+            elif count == 3:
+                txt.append(f'Палку длиной {a * 5} разрезали на 5 равных частей. Найдите их длину.')
+                otv.append(str(a))
+            elif count == 4:
+                txt.append(f'Палку длиной {a * 6} разрезали на 6 равных частей. Найдите их длину.')
+                otv.append(str(a))
+
         tems = {'7start': 'Стартовая работа для 7 класса',
                 '8start': 'Стартовая работа для 8 класса',
                 '9start': 'Стартовая работа для 9 класса',
-                '10start': 'Стартовая работа для 10 класса'
+                '10start': 'Стартовая работа для 10 класса',
+                'demo': 'Демонстрационный вариант'
                 }
         tx = '${!$%^'.join(txt)
         return render(request, 'main/CheckStartWork.html', {'data': txt, 'tema': tems[tema]})
@@ -1183,7 +1427,7 @@ def Zada4iStud(request):
         request.session['zada4i'] = zada4i
         work_seconds = 0
         return redirect('studentItogStat')
-
+    print(work_seconds)
     return render(request, 'main/Zada4iStud.html', {'zada4a': zada4a, 'zada4a_num': request.session['zada4a_num'] + 1,
                                                     'time': work_seconds})
 
@@ -1238,6 +1482,8 @@ def studentStat(request):
         zada4a_num = int(num)
         otvet = answer['otvet']
         lst = table.pole11.split('$%&^')
+        if int(num) > len(lst) - 1 or otvet == '':
+            return redirect('studentStat')
         lst[zada4a_num - 1] = otvet
         table.pole11 = '$%&^'.join(lst)
         table.pole10 = table.pole11
@@ -1316,7 +1562,7 @@ def teacherRegist(request):
                         send_mail(
                             'Оповещение для учителя платформы GeoTutor!',
                             'Добро пожаловать! Мы рады приветствовать вас на нашей платформе)',
-                            'geometrix2023_2024@mail.ru',
+                            'geotutor@geotutor.ru',
                             [email],
                             fail_silently=False,
                         )
@@ -1433,6 +1679,7 @@ def teacherReg(request):
         return redirect('createWork')
     return render(request, 'main/teacherStart.html', {'nm': nm, 'fl': fl, 'fl0': fl0})
 
+
 def summary_of_work(request):
     answer = request.GET
     name_of_work = request.session['name_of_work']
@@ -1446,36 +1693,43 @@ def summary_of_work(request):
                ' '.join(rows[0].pole3.split('#*)&^')[1].split('T'))
         tema = rows[0].pole12
         count = 0
+        passwords = []
         for j in rows:
-            lst = j.pole11.split('$%&^')
-            zada4i = j.pole1.split('${!$%^')
-            true_ans = j.pole2.split('${!$%^')
-            dano = 0
-            prav = 0
+            if j.pole5 != '0':
+                lst = j.pole11.split('$%&^')
+                zada4i = j.pole1.split('${!$%^')
+                true_ans = j.pole2.split('${!$%^')
+                dano = 0
+                prav = 0
 
-            if len(lst) == 1 and lst[0] == '0':
-                dano, prav = 0, 0
+                if len(lst) == 1 and lst[0] == '0':
+                    dano, prav = 0, 0
+                else:
+                    for i in range(len(zada4i)):
+                        if lst[i] != '':
+                            dano += 1
+                            if lst[i] == true_ans[i]:
+                                prav += 1
+
+                if j.studentId == '':
+                    name, surname = 'Не ', 'выполнено'
+                else:
+                    name, surname = j.studentId.split('{#{%%')[0], j.studentId.split('{#{%%')[1]
+
+                itog = int((prav / len(zada4i)) * 100)
+                password = j.pole8
+                # data.append([count + 1, name, surname, dano, prav, itog, password])
+                data.append([surname, name, dano, prav, itog, password])
+                passwords.append(password)
+                count += 1
             else:
-                for i in range(len(zada4i)):
-                    if lst[i] != '':
-                        dano += 1
-                        if lst[i] == true_ans[i]:
-                            prav += 1
-
-            if j.studentId == '':
-                name, surname = 'Не ', 'выполнено'
-            else:
-                name, surname = j.studentId.split('{#{%%')[0], j.studentId.split('{#{%%')[1]
-
-            itog = int((prav / len(zada4i)) * 100)
-            password = j.pole8
-
-            data.append([count + 1, name, surname, dano, prav, itog, password])
-            count += 1
+                continue
+        data.sort(key=lambda x: (-x[4], x[0]))
+        data = [[i[0]] + list(i[1]) for i in tuple(enumerate(data, 1))]  # добавляем нумерацию
     else:
         mess = 'Такой работы не существует...проверьте название ещё раз!)'
         return render(request, 'main/error5.html', {'mess': mess})
-    if 'check' in answer:
+    if 'password' in answer:
         passw = answer['password']
         if TasksAkt.objects.filter(pole8=passw).exists() == 1:
             request.session['password2'] = passw
@@ -1484,7 +1738,9 @@ def summary_of_work(request):
             mess = 'Увы, такой работы не существует....'
             return render(request, 'main/error6.html', {'mess': mess})
     return render(request, 'main/summary_of_work.html', {'data': data, 'work_name': work_name,
-                                                         'tema': tema, 'date': date, 'time': time})
+                                                         'tema': tema, 'date': date, 'time': time,
+                                                         'passwords': passwords})
+
 
 def CheckStartWork(request):
     return render(request, 'main/CheckStartWork.html')
@@ -1498,6 +1754,9 @@ def createWork(request):
         lst = []
         start_date = answer['start_date']
         end_date = answer['end_date']
+        if TasksAkt.objects.filter(pole6=work_name):
+            mess = 'Такое название уже существует. Попробуйте ещё раз!'
+            return render(request, 'main/error.html', {'mess': mess})
         if start_date == end_date:
             mess = 'Даты совпадают, попробуйте заново!'
             return render(request, 'main/error.html', {'mess': mess})
@@ -1521,10 +1780,16 @@ def createWork(request):
             message = 'Введите целое числовое значение кол-ва вариантов!'
             return render(request, 'main/error.html', {'mess': message})
         passwords, keys = [], []
+        data_docx = []
         for i in range(int(counter)):
             alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ1234567890'
             key_alph = ')*(&^%$@!?/[]{}'
-            work_password = ''.join(sample(alph, 12))
+            numbers2 = '0123456789'
+            work_password = ''.join(sample(numbers2, 5))
+            while TasksAkt.objects.filter(pole8=work_password):
+                work_password = ''.join(sample(numbers2, 5))
+            while work_password in passwords:
+                work_password = ''.join(sample(numbers2, 5))
             tema = request.GET['tema']
             txt, otv = [], []
             tx, ot = '', ''
@@ -1693,16 +1958,16 @@ def createWork(request):
                     x, y = randint(50, 89), randint(16, 49)
                     txt.append('Внутри угла ' + str(a) + str(b) + str(c) + ' проведен луч ' + str(b) + str(d) +
                                '. Найти угол ' + str(a) + str(b) + str(c) + ', если угол ' + str(a) +
-                               str(b) + str(d) + ' равен ' + str(x) + ' градусов, '
-                               'а угол ' + str(c) + str(b) + str(d) + ' на ' + str(y) + ' градусов больше.')
+                               str(b) + str(d) + ' равен ' + str(x) + '°, '
+                               'а угол ' + str(c) + str(b) + str(d) + ' на ' + str(y) + '° больше.')
                     otv.append(str(2 * x + y))
                 elif count == 2:
                     a, b, c, d = sample(alph, 4)
                     x, y = randint(99, 169), randint(16, 48)
                     txt.append('Внутри угла ' + str(a) + str(b) + str(c) + ' проведен луч ' + str(b) + str(d) +
                                '. Найти угол ' + str(a) + str(b) + str(d) + ', если угол ' + str(a) +
-                               str(b) + str(c) + ' равен ' + str(x) + ' градусов, '
-                               'а угол ' + str(c) + str(b) + str(d) + ' на ' + str(y) + ' градусов меньше.')
+                               str(b) + str(c) + ' равен ' + str(x) + '°, '
+                               'а угол ' + str(c) + str(b) + str(d) + ' на ' + str(y) + '° меньше.')
                     otv.append(str(y))
 
 
@@ -1847,7 +2112,7 @@ def createWork(request):
                           ' соответственно. ∠' + str(m) + str(d) + str(a) + ' = ' + str(x) +
                           '°. Найдите величину угла ' + str(b) + '.')
                     otv.append(str(180 - 2 * x))
-                if count == 4:
+                if count == 4: 
                     x = 2 * randint(50, 80)
                     txt.append('Дан равнобедренный треугольник ' + str(a) + str(b) + str(c) + ' с основанием ' +
                           str(a) + str(c) + '. Биссектрисы углов при основании '
@@ -1936,12 +2201,12 @@ def createWork(request):
                 x = randrange(40, 120, 2)
                 if count == 1:
                     txt.append('В равнобедренном треугольнике ' + str(a) + str(b) + str(c) +
-                               ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен ' + str(x) +' градусов. '
+                               ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен ' + str(x) + '°. '
                                'Найдите величину угла ' + str(a) + '.')
                     otv.append(str((180 - x) // 2))
                 if count == 2:
                     txt.append('В равнобедренном треугольнике ' + str(a) + str(b) + str(c) +
-                               ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен ' + str(x) +' градусов. '
+                               ' с основанием ' + str(a) + str(c) + ' угол ' + str(b) + ' равен ' + str(x) + '°. '
                                'Найдите величину угла ' + str(c) + '.')
                     otv.append(str((180 - x) // 2))
 
@@ -2243,12 +2508,66 @@ def createWork(request):
                     otv.append(str(piffTr[count1][2] - piffTr[count2][2] + piffTr[count3][2]))
 
 
+            # начало генерации демонстрационного варианта
+            if tema == 'demo':
+                count = randint(1, 2)
+                lst = [9, 16, 25, 36, 49, 64, 81]
+                k = randint(1, 7)
+                a = lst[k - 1]
+                if count == 1:
+                    txt.append(f'Сторона квадрата равна {str(int(a ** 0.5))}. Найдите его площадь.')
+                    otv.append(str(a))
+                elif count == 2:
+                    txt.append(f'Площадь квадрата равна {str(a)}. Найдите его сторону.')
+                    otv.append(str(int(a ** 0.5)))
+
+
+                count = randint(1, 2)
+                a = randint(4, 10)
+                b = randint(3, 9)
+                while b == a:
+                    b = randint(3, 9)
+                if count == 1:
+                    txt.append(f'Площадь прямоугольника со стороной {str(a)} равна {str(a * b)}. Найдите сторону смежную с данной.')
+                    otv.append(str(b))
+                elif count == 2:
+                    txt.append(f'Найдите плодащь прямоугольника, если его длина равна {str(max(a, b))}, а ширина равна {str(min(a, b))}.')
+                    otv.append(str(a * b))
+
+                a, h = randrange(2, 10, 2), randint(1, 6)
+                txt.append(f'Найдите площадь треугольника, основание которого равно {str(a)}, а высота, проведённая к нему равна {str(h)}.')
+                otv.append(str(int(0.5 * a * h)))
+
+
+                count = randint(1, 2)
+                if count == 1:
+                    c, a = randint(3, 10), randint(7, 16)
+                    b = a
+                    txt.append(f'Найдите периметр равнобедренного треугольника с основанием {str(c)} и боковой стороной {str(a)}.')
+                    otv.append(str(a * 2 + c))
+                elif count == 2:
+                    a = randint(5, 15)
+                    txt.append(f'Найдите периметр равностороннего треугольника со стороной {str(a)}.')
+                    otv.append(str(a * 3))
+
+
+                count = randint(3, 6)
+                a = randint(3, 8)
+                while count == a:
+                    a = randint(3, 8)
+                txt.append(f'Палку длиной {a * (count)} разрезали на {count} равны{["e", "х"][count > 4.5]} '
+                           f'част{["и", "ей"][count > 4.5]}. Найдите длину каждой части.')
+                otv.append(str(a))
+
+
+
             tx = '${!$%^'.join(txt)
             ot = '${!$%^'.join(otv)
             tems = {'7start': 'Стартовая работа для 7 класса',
                     '8start': 'Стартовая работа для 8 класса',
                     '9start': 'Стартовая работа для 9 класса',
-                    '10start': 'Стартовая работа для 10 класса'
+                    '10start': 'Стартовая работа для 10 класса',
+                    'demo': 'Демонстрационный вариант'
                     }
 
 
@@ -2258,25 +2577,30 @@ def createWork(request):
                      pole8=work_password, pole12=tems[tema]
                      ).save()
             passwords.append(str(len(passwords) + 1) + '. ' + str(work_password))
+            data_docx.append([txt, otv])
         teacher = request.user.first_name.split('{^@$')
         name, surname, patr = teacher[0], teacher[1], teacher[-1]
         mass = TeachersAkt.objects.get(idTeacher=teacher_id)
         email = mass.email
+        start_date = str(start_date)
+        start_date = start_date.replace('T', ' ')
+        end_date = str(end_date)
+        end_date = end_date.replace('T', ' ')
         try:
             send_mail(
-                'Оповещение для учителя платформы GeoTutor!',
-                'Здравствуйте, ' + name + ' ' + patr + '! Вы успешно создали работу.\n' +
-                'Название: ' + str(work_name) + '\n' + 'Тема: ' + str(tems[tema]) + '\n' +
-                'Кол-во вариантов: ' + str(
-                    counter) + '\n' +
-                '\n' + 'Пароли:\n' + '\n'.join(passwords) + '\n' +
-                '\n' + '\n' + 'Дата и время начала: ' + str(start_date) + '\n' +
-                'Дата и время окончания: ' + str(end_date) + '\n' + 'Время на работу: ' + str(time) + ' минут' + '\n' +
-                '\n' + 'Перейти на сайт: geotutor.ru',
-                'geometrix2023_2024@mail.ru',
-                [email],
-                fail_silently=False,
-            )
+                    'Оповещение для учителя платформы GeoTutor!',
+                    'Здравствуйте, ' + name + ' ' + patr + '! Вы успешно создали работу.\n' +
+                    'Название: ' + str(work_name) + '\n' + 'Тема: ' + str(tems[tema]) + '\n' +
+                    'Кол-во вариантов: ' + str(
+                        counter) + '\n' +
+                    '\n' + 'Пароли:\n' + '\n'.join(passwords) + '\n' +
+                    '\n' + '\n' + 'Дата и время начала: ' + str(start_date) + '\n' +
+                    'Дата и время окончания: ' + str(end_date) + '\n' + 'Время на работу: ' + str(time) + ' минут' + '\n' +
+                    '\n' + 'Перейти на сайт: geotutor.ru',
+                    'geotutor@geotutor.ru',
+                    [email],
+                    fail_silently=False,
+                )
         except Exception as e:
             mess = 'Ошибка при отправке письма...'
             return render(request, 'main/error.html', {'mess': mess})
@@ -2286,8 +2610,95 @@ def createWork(request):
                        '\nТема: ' + str(tems[tema]) + '\nФИО: ' + \
                        surname + ' ' + name + '\nEmail: ' + email + '\nКол-во вариантов: ' + counter
         send_telegram_message(chat_id, message_text)
-        return render(request, 'main/workCreated.html')
+        request.session['tema'] = str(tems[tema])
+        request.session['vars'] = int(counter)
+        request.session['kolzad'] = len(txt)
+        request.session['data'] = data_docx
+        return redirect('workCreated')
     return render(request, 'main/createWork.html')
+
+
+def workCreated(request):
+    answer = request.GET
+    tem = request.session['tema']
+    variants = request.session['vars']
+    kolzad = request.session['kolzad']
+    data = request.session['data']
+    if 'save' in answer:
+        tem = request.session['tema']
+        variants = request.session['vars']
+        kolzad = request.session['kolzad']
+        data = request.session['data']
+        mydoc = Document()
+        section = mydoc.sections[0]
+        section.page_height = Mm(297)
+        section.page_width = Mm(210)
+        section.left_margin = Mm(25)
+        section.right_margin = Mm(20)
+        section.top_margin = Mm(20)
+        section.bottom_margin = Mm(20)
+        section.header_distance = Mm(12.7)
+        section.footer_distance = Mm(12.7)
+        style = mydoc.styles['Normal']
+        font = style.font
+        font.name = 'Times New Roman'
+
+        p = mydoc.add_paragraph()
+        p.alignment = 1
+        p.paragraph_format.space_before = Pt(1)
+        p.paragraph_format.space_after = Pt(1)
+        tema = p.add_run('Тема: ' + tem)
+        tema.font.size = Pt(14)
+        tema.font.bold = True
+        p.paragraph_format.space_after = Pt(12)
+
+        for r in range(variants):
+            p = mydoc.add_paragraph()
+            p.style.font.size = Pt(12)
+            p.paragraph_format.space_before = Pt(1)
+            p.paragraph_format.space_after = Pt(1)
+            p.add_run('Вариант №' + str(r + 1)).bold = True
+            for z in range(kolzad):
+                p = mydoc.add_paragraph()
+                p.add_run('Задача №' + str(z + 1) + '. ').italic = True
+                p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                p.paragraph_format.space_before = Pt(1)
+                p.paragraph_format.space_after = Pt(1)
+                p.add_run(data[r][0][z])
+            p = mydoc.add_paragraph()
+        p = mydoc.add_paragraph()
+
+        o = mydoc.add_paragraph()
+        o.alignment = 1
+        o = o.add_run('Ответы:')
+        o.font.size = Pt(14)
+        o.bold = True
+        for r in range(variants):
+            p = mydoc.add_paragraph()
+            p.style.font.size = Pt(12)
+            p.paragraph_format.space_before = Pt(1)
+            p.paragraph_format.space_after = Pt(1)
+            p.add_run('Вариант №' + str(r + 1)).bold = True
+            for z in range(kolzad):
+                p = mydoc.add_paragraph()
+                p.add_run('Задача №' + str(z + 1) + '. ').italic = True
+                p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                p.paragraph_format.space_before = Pt(1)
+                p.paragraph_format.space_after = Pt(1)
+                p.add_run(data[r][1][z])
+            p = mydoc.add_paragraph()
+        mydoc.add_page_break()
+        file_path = 'work.docx'
+        mydoc.save(file_path)
+
+        # Открываем файл и возвращаем его в ответе
+        with open(file_path, 'rb') as docx_file:
+            response = HttpResponse(docx_file,
+                                    content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response['Content-Disposition'] = 'attachment; filename="%s"' % smart_str(file_path)
+            return response
+        return render(request, 'main/start.html')
+    return render(request, 'main/workCreated.html')
 
 
 def check_prost(num):
@@ -2323,7 +2734,7 @@ def change_password(request):
                 send_mail(
                     'Оповещение для учителя платформы GeoTutor!',
                     'Здравствуйте, ' + name + ' ' + patr + '! Изменён пароль вашей учётной записи!',
-                    'geometrix2023_2024@mail.ru',
+                    'geometutor@geotutor.ru',
                     [email],
                     fail_silently=False,
                 )

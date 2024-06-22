@@ -40,7 +40,7 @@ header {
 }
 
 .topnav a {
-  margin-left: 0px;
+  margin-left: 5px;
 }
 
 .works{
@@ -146,6 +146,9 @@ header {
     max-width: 300px;
 }
 
+.btn1 {
+}
+
 .btn {
     -webkit-appearance: none;
     appearance: none;
@@ -165,12 +168,32 @@ header {
 
     transition: 0.3s;
     outline: none;
+
+    color: #444;
+    font-size: 15px;
+    display: block;
+    margin-top: 16px;
 }
 
 .btn_abs-wrapper {
     width: 50px;
     position: absolute;
     right: 4px;
+}
+
+.btn_os {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px;
+    background: #3993fa;
+    color: #fff;
+    padding: 8px 16px;
+    font-size: min(14px, 4vw);
+    margin: 0.5rem;
+    text-align: center;
 }
 
 .btn:hover {
@@ -213,6 +236,7 @@ header {
 .inner-offset {
     padding-top: 32px;
     padding-bottom: 32px;
+    padding-left: 5px;
 }
 
 .box {
@@ -323,12 +347,9 @@ header {
 }
 
 .timer {
-  position: fixed;
-  top: 100px;
-  right: 10px;
-  padding: 10px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    color: #ff2400;
 }
 
 .img {

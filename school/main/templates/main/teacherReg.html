@@ -5,7 +5,7 @@
 <div class="wrapper">
     <div class="box">
         <h1 class="title">Регистрация</h1>
-        <div>Логин должен быть уникальным, по нему вы будете входить в приложение, не забудьте его!</div>
+        <div style="margin-left: 5px;">Логин должен быть уникальным, по нему вы будете входить в приложение, не забудьте его!</div>
         <form action="" method="get">
             {% csrf_token %}
             <input class="textfield offset" type="text" id="inpu1" name="sur" placeholder='Ваша Фамилия' maxlength="25" size="20">
@@ -17,8 +17,8 @@
             <input class="textfield offset" type="password" id="inpu7" name="password2" placeholder='Введите пароль повторно' maxlength="25" size="20">
 
 
-            <div class="point">Логин должен быть довольно сложным, чтобы он отличался от других и его никто не смог повторить.</div>
-            <div class="point">Если введенный логин уже будет в базе данных, придется заполнить форму заново.</div>
+            <div style="margin-left: 5px;" class="point">Логин должен быть довольно сложным, чтобы он отличался от других и его никто не смог повторить.</div>
+            <div style="margin-left: 5px;" class="point">Если введенный логин уже будет в базе данных, придется заполнить форму заново.</div>
 
             <button class="btn btn-success btn offset" id='butt1' type="submit" name="intlg" onclick="Func()">Отправить</button>
 
