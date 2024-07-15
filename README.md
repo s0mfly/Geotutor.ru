@@ -1,6 +1,6 @@
 # Geotutor
 
-## Описание 
+## Description 
 Geotutor is a web application for solving geometric problems, created to help teachers and students
 
 ## Why did I decide to do this, and what came of it?
